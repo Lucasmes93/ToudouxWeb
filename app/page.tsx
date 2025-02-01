@@ -1,6 +1,6 @@
-"use client"; // Assure que useState et useEffect fonctionnent
+"use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import IndexPage from "./IndexPage";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     setTimeout(() => {
       setShowIndex(false);
-    }, 3000);
+    }, 10000);
   }, []);
 
   return showIndex ? (
@@ -21,13 +21,7 @@ export default function Home() {
       {/* Header */}
       <header className="bg-[#6C5454] text-white flex items-center justify-between p-6">
         <div className="flex items-center">
-          <Image
-            src="/assets/toudoux.png"
-            alt="Logo Toudoux"
-            width={100}
-            height={100}
-            className="w-auto mr-2"
-          />
+          <Image src="/assets/toudoux.png" alt="Logo Toudoux" width={100} height={100} className="w-auto h-auto shadow-none outline-none filter-none" />
         </div>
         <nav className="flex-1 flex justify-center gap-8">
           <Link href="/services" className="hover:bg-white hover:text-[#6C5454] px-2 py-1 rounded transition">
@@ -66,13 +60,7 @@ export default function Home() {
               </p>
             </div>
             <div className="flex justify-center">
-              <Image
-                src="/assets/chien.jpg"
-                alt="Homme et chien"
-                width={700}
-                height={450}
-                className="rounded-lg shadow-md"
-              />
+              <Image src="/assets/chien.jpg" alt="Homme et chien" width={700} height={450} className="rounded-lg shadow-md" />
             </div>
           </div>
         </section>
@@ -80,19 +68,11 @@ export default function Home() {
 
       <footer className="bg-[#6C5454] text-white text-center py-4 mt-auto">
         <div className="flex justify-center gap-8 text-sm">
-          <a href="/conditions-utilisation" className="hover:underline">
-            Conditions d&apos;utilisation
-          </a>
-          <a href="/mentions-legales" className="hover:underline">
-            Mentions légales
-          </a>
-          <a href="/obligations" className="hover:underline">
-            Obligations légales
-          </a>
+          <a href="/conditions-utilisation" className="hover:underline">Conditions d&apos;utilisation</a>
+          <a href="/mentions-legales" className="hover:underline">Mentions légales</a>
+          <a href="/obligations" className="hover:underline">Obligations légales</a>
         </div>
-        <p className="mt-4 text-xs">
-          © 2025 Toudoux, Tous droits réservés.
-        </p>
+        <p className="mt-4 text-xs">© 2025 Toudoux, Tous droits réservés.</p>
       </footer>
     </div>
   );
