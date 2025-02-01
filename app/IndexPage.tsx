@@ -47,7 +47,7 @@ export default function IndexPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-[#6C5454] text-white relative">
+    <div className="flex flex-col items-center justify-center h-screen bg-[#c17453] text-white relative">
       {/* Bouton de fermeture */}
       {showCloseButton && (
         <button
