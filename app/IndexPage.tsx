@@ -1,21 +1,10 @@
-"use client"; // Obligatoire car on utilise useEffect
-
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+"use client"; // Obligatoire car composant interactif
 
 export default function IndexPage() {
-  const router = useRouter();
-
-  useEffect(() => {
-    setTimeout(() => {
-      router.push("/"); // Redirige vers la page principale après 3 secondes
-    }, 3000);
-  }, []);
-
   return (
-    <div>
-      <h1>Bienvenue sur IndexPage</h1>
-      <p>Redirection en cours...</p>
+    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+      <h1 className="text-2xl font-bold">Bienvenue sur Toudoux</h1>
+      <p className="text-gray-600 mt-2">Chargement en cours...</p>
     </div>
   );
 }
