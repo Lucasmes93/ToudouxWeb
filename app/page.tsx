@@ -1,4 +1,3 @@
-// pages/index.tsx
 import Image from "next/image"; // Import de Image pour optimiser le chargement des images
 import Link from "next/link"; // Import de Link pour la navigation entre les pages
 
