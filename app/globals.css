@@ -1,37 +1,112 @@
+/* Tailwind setup */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #A88F79;  /* Marron clair pour le fond de la page */
+  --background: #ffffff;
   --foreground: #ECD8BD;
-  --header-background: #6C5454;  /* Marron foncé pour le header */
-  --header-text: #6C5454;  /* Texte en blanc */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column; /* Pour faire en sorte que le footer se colle en bas */
+  height: 100vh; /* Prendre 100% de la hauteur de l'écran */
+  margin: 0; /* Supprime les marges par défaut */
 }
 
-/* ✅ Header : marron foncé */
-.header {
-  @apply bg-[#6C5454] text-white flex items-center justify-between p-4;
+header {
+  background-color: #6c5454;
+  color: white;
+  padding: 20px;
 }
 
-/* ✅ Navigation centrée */
 .nav-links {
-  @apply flex-1 flex justify-center gap-8;
+  @apply flex justify-center gap-8 text-sm;
 }
 
-/* ✅ Suppression du soulignement par défaut et soulignement au survol */
-.nav-links a {
-  @apply no-underline;
+footer {
+  background-color: #6c5454;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: auto; /* Colle le footer en bas */
 }
 
-.nav-links a:hover {
-  @apply underline;
+footer a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  transition: color 0.3s;
 }
 
+footer a:hover {
+  text-decoration: underline;
+}
 
+footer p {
+  font-size: 0.75rem;
+}
+
+main {
+  flex-grow: 1; /* Permet au contenu principal de prendre tout l'espace restant */
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  padding: 12px;
+  border-bottom: 1px solid #bfaeae;
+  cursor: pointer;
+}
+
+li:last-child {
+  border-bottom: none;
+}
+
+li:hover {
+  background-color: #f69c42;
+  color: white;
+}
+
+section {
+  margin-bottom: 30px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-xl {
+  font-size: 1.25rem;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
