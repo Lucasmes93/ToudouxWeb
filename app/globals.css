@@ -19,6 +19,17 @@
   }
 }
 
+html, body {
+  background-color: #f9f9f9 !important;
+  color: var(--foreground);
+  font-family: 'Roboto', sans-serif;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
@@ -101,15 +112,40 @@ footer p {
 }
 
 main {
-  position: absolute; /* Position absolue pour éviter qu'il ne chevauche le header */
-  top: 80px; /* Décalage sous le header (ajuste selon la hauteur du header) */
-  left: 0; /* Aligné à gauche */
-  width: 100vw; /* Toujours en pleine largeur */
-  height: calc(100vh - 80px); /* Prend toute la hauteur disponible sous le header */
-  overflow-y: auto; /* Ajoute un scroll si le contenu dépasse */
-  padding: 20px; /* Ajoute un peu d'espace intérieur */
   background-color: #f9f9f9; /* Couleur de fond */
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Deux colonnes sur grand écran */
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  width: 80%; /* Réduit la largeur pour ne pas coller aux bords */
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
 }
+
+@media (max-width: 768px) {
+  main {
+    grid-template-columns: 1fr; /* Une seule colonne sur mobile */
+    gap: 1rem;
+    width: 90%; /* Laisse respirer les côtés */
+  }
+
+  .salon-container, .image-container {
+    width: 100%; /* Éviter qu'un bloc dépasse */
+    text-align: center;
+  }
+
+  .salon-list {
+    width: 100%;
+  }
+
+  .header-logo {
+    width: 140px; /* Réduire le logo en mobile */
+    height: auto;
+  }
+}
+
 
 img {
   max-width: 100%;
