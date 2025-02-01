@@ -1,4 +1,6 @@
+// pages/index.tsx
 import Image from "next/image"; // Import de Image pour optimiser le chargement des images
+import Link from "next/link"; // Import de Link pour la navigation entre les pages
 
 export default function Home() {
   return (
@@ -15,12 +17,13 @@ export default function Home() {
           />
         </div>
         <nav className="flex-1 flex justify-center gap-8">
-          <a
-            href="#services"
+          {/* Utilisation de Link pour la navigation */}
+          <Link
+            href="/services"  // Route vers la page services
             className="hover:bg-white hover:text-[#6C5454] px-2 py-1 rounded transition"
           >
             SERVICES
-          </a>
+          </Link>
           <a
             href="#connexions"
             className="hover:bg-white hover:text-[#6C5454] px-2 py-1 rounded transition"
@@ -42,7 +45,7 @@ export default function Home() {
                 "Salon Lucas : 15 rue Temple",
                 "Salon Bis : 148 impasse ESTIAM",
                 "Salon TOUDOUX : 16 boulevard nuit",
-                "Salon PAT : 32 rue auchant",
+                "Salon PAT : 32 rue Auchant",
                 "Salon Magic : 2 rue de la Debouillet",
               ].map((salon, index) => (
                 <li
