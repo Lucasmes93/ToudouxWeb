@@ -24,7 +24,7 @@ export default function IndexPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-[#c17453] text-white relative">
+    <div className="flex flex-col items-center justify-center h-screen bg-[#503f3f] text-white relative">
       {/* Logo */}
       <Image src="/assets/toudoux.png" alt="Logo Toudoux" width={600} height={600} className="w-auto h-auto shadow-none outline-none filter-none"/>
 
@@ -40,7 +40,7 @@ export default function IndexPage() {
           {/* Bouton App Store */}
           <div className="flex flex-col items-center">
             <a href="https://apps.apple.com/" target="_blank" rel="noopener noreferrer">
-              <button className="bg-white text-[#6C5454] font-semibold px-4 py-2 rounded-lg shadow-lg hover:bg-gray-200 transition">
+              <button className="bg-white text-[#5e4747] font-semibold px-4 py-2 rounded-lg shadow-lg hover:bg-gray-200 transition">
                 Installer sur AppStore
               </button>
             </a>

@@ -1,7 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
 /* Tailwind setup */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 
 :root {
   --background: #ffffff;
@@ -18,7 +22,7 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Roboto', sans-serif;
   display: flex;
   flex-direction: column; /* Pour faire en sorte que le footer se colle en bas */
   height: 100vh; /* Prendre 100% de la hauteur de l'écran */
@@ -26,21 +30,59 @@ body {
 }
 
 header {
-  background-color: #6c5454;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 80px; /* Hauteur fixe */
+  background-color: #6C5454;
   color: white;
-  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centre le contenu */
+  padding: 0 20px;
+  z-index: 1000;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Conteneur du logo */
+.header-logo-container {
+  flex: 1; /* Prend toute la largeur dispo */
+  display: flex;
+  justify-content: center; /* Centre horizontalement */
+}
+
+/* Logo */
+.header-logo {
+  height: 130px; /* Augmente la taille */
+  max-height: 150px; /* Empêche le débordement */
+  width: auto;
+}
+
+/* Navigation */
 .nav-links {
   @apply flex justify-center gap-8 text-sm;
+  position: absolute;
+  right: 20px; /* Colle la navigation à droite */
+  display: flex;
+  gap: 20px;
 }
 
 footer {
-  background-color: #6c5454;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  margin-top: auto; /* Colle le footer en bas */
+    position: fixed; /* Fixe le footer en bas de l'écran */
+    bottom: 0;
+    left: 0;
+    width: 100vw; /* Prend toute la largeur de l'écran */
+    height: 60px; /* Hauteur fixe (ajuste si nécessaire) */
+    background-color: #503f3f; /* Garde la couleur actuelle */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Assure qu’il est au-dessus des autres éléments si besoin */
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1); /* Optionnel : effet d'ombre */
+  
 }
 
 footer a {
@@ -59,7 +101,14 @@ footer p {
 }
 
 main {
-  flex-grow: 1; /* Permet au contenu principal de prendre tout l'espace restant */
+  position: absolute; /* Position absolue pour éviter qu'il ne chevauche le header */
+  top: 80px; /* Décalage sous le header (ajuste selon la hauteur du header) */
+  left: 0; /* Aligné à gauche */
+  width: 100vw; /* Toujours en pleine largeur */
+  height: calc(100vh - 80px); /* Prend toute la hauteur disponible sous le header */
+  overflow-y: auto; /* Ajoute un scroll si le contenu dépasse */
+  padding: 20px; /* Ajoute un peu d'espace intérieur */
+  background-color: #f9f9f9; /* Couleur de fond */
 }
 
 img {
