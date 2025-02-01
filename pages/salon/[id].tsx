@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Image from "next/image";
 
 // Exemple de données des salons (En production, ces données viendraient d'une base de données ou d'une API)
 const salons = [
@@ -52,12 +53,32 @@ export default function SalonDetails() {
   }
 
   return (
-    <div className="salon-details">
+    <div className="page-login min-h-screen flex flex-col">
       {/* Header */}
-      <header className="bg-[#6C5454] text-white p-6">
-        <Link href="/services" className="text-white hover:text-[#6C5454]">
-          Retour aux salons
-        </Link>
+      <header className="bg-[#6C5454] text-white flex items-center justify-between p-6">
+        <div className="flex items-center cursor-pointer" onClick={() => router.push("/")}>
+          <Image
+            src="/assets/toudoux.png"  // Image dans le dossier public
+            alt="Logo Toudoux"
+            width={100}  // Agrandissement du logo
+            height={100}  // Agrandissement du logo
+            className="w-auto mr-2"
+          />
+        </div>
+        <nav className="flex-1 flex justify-center gap-8">
+          <Link
+            href="/services"  // Route vers la page services
+            className="hover:bg-white hover:text-[#6C5454] px-4 py-2 rounded-md transition"
+          >
+            SERVICES
+          </Link>
+          <Link
+            href="/login"  // Route vers la page de connexion
+            className="hover:bg-white hover:text-[#6C5454] px-4 py-2 rounded-md transition"
+          >
+            CONNEXION
+          </Link>
+        </nav>
       </header>
 
       {/* Contenu principal */}
