@@ -6,58 +6,25 @@ import Image from "next/image";
 
 export default function IndexPage() {
   const router = useRouter();
-  const [showCloseButton, setShowCloseButton] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [buttonClickable, setButtonClickable] = useState(false);
 
   useEffect(() => {
     const hasVisited = localStorage.getItem("hasVisited");
 
     if (hasVisited) {
-      setShowCloseButton(true);
-    } else {
-      const timeout = setTimeout(() => {
-        localStorage.setItem("hasVisited", "true");
-        router.replace("/");
-      }, 15000); // Transition des pages à 15 secondes
-
-      return () => clearTimeout(timeout);
+      router.replace("/"); // Redirige immédiatement si déjà visité
+      return;
     }
 
-    // Animation de remplissage du bouton "Accéder au site" sur 6.5 secondes
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev < 100) {
-          return prev + (100 / 65); // 6.5 secondes = 6500ms -> 100% / 65 steps (100ms intervals)
-        } else {
-          setButtonClickable(true); // Rendre le bouton cliquable une fois rempli
-          return 100;
-        }
-      });
-    }, 100); // 100ms interval
-
-    return () => clearInterval(interval);
+    // Marquer la page comme vue pour ne plus la revoir après un refresh
+    localStorage.setItem("hasVisited", "true");
   }, [router]);
 
-  const handleClose = () => {
-    if (buttonClickable) {
-      localStorage.setItem("hasVisited", "true");
-      router.replace("/");
-    }
+  const handleAccess = () => {
+    router.replace("/");
   };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-[#c17453] text-white relative">
-      {/* Bouton de fermeture */}
-      {showCloseButton && (
-        <button
-          className="absolute top-5 right-5 text-white text-2xl font-bold bg-red-500 rounded-full w-10 h-10 flex items-center justify-center hover:bg-red-600 transition"
-          onClick={handleClose}
-        >
-          ✖
-        </button>
-      )}
-
       {/* Logo */}
       <Image src="/assets/toudoux.png" alt="Logo Toudoux" width={600} height={600} className="w-auto h-auto shadow-none outline-none filter-none"/>
 
@@ -91,19 +58,12 @@ export default function IndexPage() {
           </div>
         </div>
 
-        {/* Bouton "Accéder au site" avec animation de remplissage sur 6.5 secondes */}
+        {/* Bouton "Accéder au site" qui redirige immédiatement */}
         <button
-          className={`relative mt-3 w-72 h-12 font-semibold rounded-lg overflow-hidden border border-white transition ${
-            buttonClickable ? "text-[#6C5454] bg-white cursor-pointer" : "text-white bg-transparent cursor-default"
-          }`}
-          onClick={handleClose}
-          disabled={!buttonClickable} // Désactivé tant qu'il n'est pas rempli
+          className="mt-3 w-72 h-12 font-semibold rounded-lg bg-white text-[#6C5454] border border-white shadow-lg cursor-pointer hover:bg-gray-200 transition"
+          onClick={handleAccess}
         >
-          <div
-            className="absolute inset-0 bg-white"
-            style={{ width: `${progress}%`, transition: "width 0.1s linear" }}
-          />
-          <span className="relative z-10">Accéder au site</span>
+          Accéder au site
         </button>
       </div>
     </div>

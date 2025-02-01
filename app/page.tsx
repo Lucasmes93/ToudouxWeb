@@ -6,17 +6,22 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
-  const [showIndex, setShowIndex] = useState(true);
+  const [showIndex, setShowIndex] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      setShowIndex(false);
-    }, 10000);
+    const hasVisited = localStorage.getItem("hasVisited");
+
+    if (!hasVisited) {
+      setShowIndex(true);
+      localStorage.setItem("hasVisited", "true"); // Marquer la page comme vue
+    }
   }, []);
 
-  return showIndex ? (
-    <IndexPage />
-  ) : (
+  if (showIndex) {
+    return <IndexPage />;
+  }
+
+  return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
       <header className="bg-[#6C5454] text-white flex items-center justify-between p-6">
