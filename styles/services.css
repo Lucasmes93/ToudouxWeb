@@ -1,3 +1,9 @@
+
+/* Tailwind setup */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* global styles */
 * {
   margin: 0;
@@ -26,6 +32,11 @@ body {
   top: 0;
   width: 100%;
   z-index: 10;
+}
+
+
+.nav-links {
+  @apply flex justify-center gap-8 text-sm;
 }
 
 .header .logo {
@@ -135,7 +146,6 @@ footer p {
   font-size: 0.75rem;
 }
 
-
 /* Media Query for Responsiveness */
 @media (max-width: 768px) {
   .service-grid {
@@ -165,4 +175,14 @@ footer p {
     gap: 15px;
   }
 }
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+
 

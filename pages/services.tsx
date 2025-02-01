@@ -6,22 +6,31 @@ export default function Services() {
   return (
     <div className="page-services">
       {/* Header */}
-      <header className="header">
-        <div className="logo">
-          <Link href="/">
+    
+      <header className="bg-[#6C5454] text-white flex items-center justify-between p-6">
+        <div className="flex items-center">
+        <Link href="/">
             <Image
               src="/assets/toudoux.png"  // Image dans le dossier public
               alt="Logo Toudoux"
               width={100}  // Agrandissement du logo
               height={100}  // Agrandissement du logo
+            className="w-auto mr-2"
             />
           </Link>
         </div>
-        <nav>
-          <Link href="/services" className="nav-item">
+        <nav className="flex-1 flex justify-center gap-8">
+          {/* Utilisation de Link pour la navigation */}
+          <Link
+            href="/services"  // Route vers la page services
+            className="hover:bg-white hover:text-[#6C5454] px-2 py-1 rounded transition"
+          >
             SERVICES
           </Link>
-          <a href="#connexions" className="nav-item">
+          <a
+            href="#connexions"
+            className="hover:bg-white hover:text-[#6C5454] px-2 py-1 rounded transition"
+          >
             CONNEXIONS
           </a>
         </nav>
