@@ -24,12 +24,12 @@ export default function Home() {
           >
             SERVICES
           </Link>
-          <a
-            href="#connexions"
+          <Link
+            href="/login"  // Nouveau lien vers la page de connexion
             className="hover:bg-white hover:text-[#6C5454] px-2 py-1 rounded transition"
           >
-            CONNEXIONS
-          </a>
+           CONNEXION
+          </Link>
         </nav>
       </header>
 
