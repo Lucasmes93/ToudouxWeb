@@ -3,15 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #A88F79;  /* Marron clair pour le fond de la page */
+  --foreground: #ECD8BD;
+  --header-background: #6C5454;  /* Marron foncé pour le header */
+  --header-text: #6C5454;  /* Texte en blanc */
 }
 
 body {
@@ -19,3 +14,24 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ✅ Header : marron foncé */
+.header {
+  @apply bg-[#6C5454] text-white flex items-center justify-between p-4;
+}
+
+/* ✅ Navigation centrée */
+.nav-links {
+  @apply flex-1 flex justify-center gap-8;
+}
+
+/* ✅ Suppression du soulignement par défaut et soulignement au survol */
+.nav-links a {
+  @apply no-underline;
+}
+
+.nav-links a:hover {
+  @apply underline;
+}
+
+
