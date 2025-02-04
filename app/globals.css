@@ -112,7 +112,7 @@ footer p {
 }
 
 main {
-  background-color: #ECD8BD; /* Couleur de fond */
+  background-color: #ecd8bd; /* Couleur de fond */
   display: grid;
   grid-template-columns: 1fr 1fr; /* Deux colonnes sur grand écran */
   gap: 2rem;
