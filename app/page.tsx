@@ -53,7 +53,6 @@ export default function Home() {
               localStorage.setItem("userAddress", adresse);
             }
           } catch (error) {
-            console.error("Erreur récupération adresse :", error);
             setAdresseUtilisateur("Adresse introuvable");
           }
 
@@ -77,19 +76,16 @@ export default function Home() {
                 distance: calculateDistance(latitude, longitude, salon.lat, salon.lon),
               }));
 
-              salonsTrouves.sort((a: { distance: number }, b: { distance: number }) => a.distance - b.distance);
-
+              salonsTrouves.sort((a, b) => a.distance - b.distance);
               setSalons(salonsTrouves.slice(0, 5));
             } else {
               setSalons([]);
             }
           } catch (error) {
-            console.error("Erreur récupération salons :", error);
             setSalons([]);
           }
         },
-        (error) => {
-          console.error("Erreur de géolocalisation :", error);
+        () => {
           setAdresseUtilisateur("Localisation refusée");
           setSalons([]);
         }
@@ -104,13 +100,11 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="bg-[#503f3f] text-white flex items-center justify-between h-[100px] px-6 relative">
-        {/* Logo à gauche */}
+      <header className="bg-[#503f3f] text-white flex items-center justify-between h-[100px] px-6 relative ">
         <div className="flex items-center">
-          <Image src="/assets/toudoux.png" alt="Logo Toudoux" width={220} height={80} className="shadow-none outline-none filter-none bg-transparent" />
+          <Image src="/assets/toudoux.png" alt="Logo Toudoux" width={220} height={80} />
         </div>
 
-        {/* Navigation Desktop centrée */}
         <nav className="hidden md:flex gap-8 text-lg font-semibold absolute left-1/2 transform -translate-x-1/2">
           <Link href="/services" className="hover:bg-white hover:text-[#503f3f] px-4 py-2 rounded transition">
             SERVICES
@@ -119,63 +113,54 @@ export default function Home() {
             CONNEXION
           </Link>
         </nav>
-
-        {/* Menu burger mobile */}
-        <div className="md:hidden">
-          <button onClick={() => setMenuOpen(!menuOpen)} className="text-white focus:outline-none">
-            ☰
-          </button>
-        </div>
-
-        {menuOpen && (
-          <div className="absolute top-full right-0 w-48 bg-[#503f3f] text-white flex flex-col items-center md:hidden shadow-md rounded-b-lg">
-            <Link href="/services" className="w-full text-center py-2 hover:bg-white hover:text-[#503f3f]">SERVICES</Link>
-            <Link href="/login" className="w-full text-center py-2 hover:bg-white hover:text-[#503f3f]">CONNEXION</Link>
-          </div>
-        )}
       </header>
 
-      {/* Main Content */}
       <main className="grid md:grid-cols-2 grid-cols-1 gap-6 mx-auto w-[90%] max-w-[1400px] mt-[80px]">
-        <div className="salon-container self-start relative">
+        {/* Salons */}
+        <div className="salon-container self-start">
           <h2 className="text-xl font-semibold mb-4 text-gray-700">Salons populaires près de chez vous</h2>
           <p className="italic text-gray-500 mb-2">{adresseUtilisateur}</p>
-          <ul className="bg-[#503f3f] text-white rounded-lg overflow-hidden salon-list relative">
-            {salons.length > 0 ? (
-              salons.map((salon, index) => (
-                <li
-                  key={index}
-                  className="p-3 border-b border-brown-light last:border-none cursor-pointer hover:bg-orange-500 relative"
-                  onMouseEnter={() => setHoveredSalon({ lat: salon.lat, lon: salon.lon })}
-                  onMouseLeave={() => setHoveredSalon(null)}
-                >
-                  <strong>{salon.nom}</strong> : {salon.adresse}, {salon.ville}
-                  {hoveredSalon && hoveredSalon.lat === salon.lat && hoveredSalon.lon === salon.lon && (
-                    <div className="absolute top-0 right-0 w-[200px] h-[200px]">
-                      <MiniMap lat={salon.lat} lon={salon.lon} />
-                    </div>
-                  )}
-                </li>
-              ))
-            ) : (
-              <li className="p-3 text-center text-gray-300">En recherche de salons à proximité.</li>
-            )}
+          <ul className="bg-[#503f3f] text-white rounded-lg overflow-hidden">
+            {salons.map((salon, index) => (
+              <li
+                key={index}
+                className="p-3 border-b last:border-none cursor-pointer hover:bg-orange-500"
+                onMouseEnter={() => setHoveredSalon({ lat: salon.lat, lon: salon.lon })}
+                onMouseLeave={() => setHoveredSalon(null)}
+              >
+                <strong>{salon.nom}</strong> : {salon.adresse}, {salon.ville}
+              </li>
+            ))}
+             <li className="p-3 text-left text-gray-300">En recherche de salons à proximité...</li>
           </ul>
         </div>
 
-        <div className="image-container flex flex-col items-center">
-          <p className="text-xl font-semibold text-gray-700 text-center">
+        {/* Image avec Map en overlay */}
+        <div className="relative">
+        <p className="text-xl font-semibold text-gray-700 text-center">
             Toudoux : Parce que votre compagnon mérite un soin tout doux !
           </p>
-          <Image src="/assets/chien.jpg" alt="Homme et chien" width={700} height={450} className="rounded-lg shadow-lg"/>
+          <Image
+            src="/assets/chien.jpg"
+            alt="Homme et chien"
+            width={700}
+            height={450}
+            className="rounded-lg shadow-lg transition-opacity duration-300"
+            style={{ opacity: hoveredSalon ? 0 : 1 }}
+          />
+          {hoveredSalon && (
+            <div className="absolute top-7 left-0 w-full h-full">
+              <MiniMap lat={hoveredSalon.lat} lon={hoveredSalon.lon}/>
+            </div>
+          )}
         </div>
       </main>
 
       <footer className="bg-[#503f3f] text-white text-center py-4">
         <div className="flex justify-center gap-8 text-sm">
-          <a href="/conditions-utilisation" className="hover:underline">Conditions d&apos;utilisation</a>
-          <a href="/mentions-legales" className="hover:underline">Mentions légales</a>
-          <a href="/obligations" className="hover:underline">Obligations légales</a>
+          <a href="/conditions-utilisation">Conditions d'utilisation</a>
+          <a href="/mentions-legales">Mentions légales</a>
+          <a href="/obligations">Obligations légales</a>
         </div>
         <p className="mt-2 text-xs">© 2025 Toudoux, Tous droits réservés.</p>
       </footer>
