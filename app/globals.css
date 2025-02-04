@@ -8,19 +8,19 @@
 
 
 :root {
-  --background: #ffffff;
+  --background: #ECD8BD;
   --foreground: #ECD8BD;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #ECD8BD;
   }
 }
 
 html, body {
-  background-color: #f9f9f9 !important;
+  background-color: #ECD8BD !important;
   color: var(--foreground);
   font-family: 'Roboto', sans-serif;
   height: 100%;
@@ -112,7 +112,7 @@ footer p {
 }
 
 main {
-  background-color: #f9f9f9; /* Couleur de fond */
+  background-color: #ECD8BD; /* Couleur de fond */
   display: grid;
   grid-template-columns: 1fr 1fr; /* Deux colonnes sur grand écran */
   gap: 2rem;

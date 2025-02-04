@@ -65,17 +65,11 @@ export default function SalonDetails() {
             className="w-auto mr-2"
           />
         </div>
-        <nav className="flex-1 flex justify-center gap-8">
-          <Link
-            href="/services"  // Route vers la page services
-            className="hover:bg-white hover:text-[#6C5454] px-4 py-2 rounded-md transition"
-          >
+        <nav className="hidden md:flex gap-8 text-lg font-semibold ml-auto">
+          <Link href="/services" className="hover:bg-white hover:text-[#503f3f] px-4 py-2 rounded transition">
             SERVICES
           </Link>
-          <Link
-            href="/login"  // Route vers la page de connexion
-            className="hover:bg-white hover:text-[#6C5454] px-4 py-2 rounded-md transition"
-          >
+          <Link href="/login" className="hover:bg-white hover:text-[#503f3f] px-4 py-2 rounded transition">
             CONNEXION
           </Link>
         </nav>

@@ -18,18 +18,11 @@ export default function Services() {
             />
           </Link>
         </div>
-        <nav className="flex-1 flex justify-center gap-8">
-          {/* Utilisation de Link pour la navigation */}
-          <Link
-            href="/services" // Route vers la page services
-            className="hover:bg-white hover:text-[#6C5454] px-2 py-1 rounded transition"
-          >
+        <nav className="hidden md:flex gap-8 text-lg font-semibold ml-auto">
+          <Link href="/services" className="hover:bg-white hover:text-[#503f3f] px-4 py-2 rounded transition">
             SERVICES
           </Link>
-          <Link
-            href="/login" // Nouveau lien vers la page de connexion
-            className="hover:bg-white hover:text-[#6C5454] px-2 py-1 rounded transition"
-          >
+          <Link href="/login" className="hover:bg-white hover:text-[#503f3f] px-4 py-2 rounded transition">
             CONNEXION
           </Link>
         </nav>

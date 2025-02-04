@@ -59,8 +59,14 @@ export default function Home() {
       <header className="bg-[#503f3f] text-white flex items-center justify-between h-[80px] px-6 relative">
         {/* Logo Centré */}
         <div className="absolute left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2">
-          <Image src="/assets/toudoux.png" alt="Logo Toudoux" width={220} height={80} className="shadow-none outline-none filter-none bg-transparent" />
-        </div>
+           <Image
+            src="/assets/toudoux.png" // Image dans le dossier public
+            alt="Logo Toudoux"
+            width={100} // Agrandissement du logo
+            height={100} // Agrandissement du logo
+            className="w-auto mr-2"
+          />
+          </div>
 
         {/* Navigation Desktop (Alignée à droite) */}
         <nav className="hidden md:flex gap-8 text-lg font-semibold ml-auto">
