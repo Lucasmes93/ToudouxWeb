@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import IndexPage from "./IndexPage";
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+// Chargement dynamique de la MiniMap pour éviter les problèmes SSR
+const MiniMap = dynamic(() => import("@/app/components/MiniMap"), { ssr: false });
 
 // Fonction pour calculer la distance entre deux points (Haversine formula)
 const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
@@ -13,8 +17,7 @@ const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: numbe
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(lat1 * (Math.PI / 180)) *
       Math.cos(lat2 * (Math.PI / 180)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 };
@@ -24,6 +27,7 @@ export default function Home() {
   const [adresseUtilisateur, setAdresseUtilisateur] = useState("Chargement de l'adresse...");
   const [salons, setSalons] = useState<any[]>([]);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [hoveredSalon, setHoveredSalon] = useState<{ lat: number; lon: number } | null>(null);
 
   useEffect(() => {
     const hasVisited = localStorage.getItem("hasVisited");
@@ -32,23 +36,16 @@ export default function Home() {
       localStorage.setItem("hasVisited", "true");
     }
 
-    const storedAddress = localStorage.getItem("userAddress");
-    if (storedAddress) {
-      setAdresseUtilisateur(storedAddress);
-    }
-
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position.coords;
-          console.log("Coordonnées de l'utilisateur :", latitude, longitude);
 
           try {
             const response = await fetch(
               `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
             );
             const data = await response.json();
-            console.log("Données d'adresse récupérées :", data);
 
             if (data.address) {
               const adresse = `${data.address.road || "Rue inconnue"}, ${data.address.postcode || ""}, ${data.address.city || "Ville inconnue"}`;
@@ -69,7 +66,6 @@ export default function Home() {
               `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(overpassQuery)}`
             );
             const data = await response.json();
-            console.log("Données brutes des salons récupérées :", data);
 
             if (data.elements && data.elements.length > 0) {
               const salonsTrouves = data.elements.map((salon: any) => ({
@@ -83,10 +79,8 @@ export default function Home() {
 
               salonsTrouves.sort((a: { distance: number }, b: { distance: number }) => a.distance - b.distance);
 
-              console.log("Données finales des salons à afficher :", salonsTrouves);
               setSalons(salonsTrouves.slice(0, 5));
             } else {
-              console.warn("Aucun salon trouvé dans l'API !");
               setSalons([]);
             }
           } catch (error) {
@@ -102,8 +96,6 @@ export default function Home() {
       );
     }
   }, []);
-
-  console.log("Salons stockés dans le state :", salons);
 
   if (showIndex) {
     return <IndexPage />;
@@ -145,24 +137,32 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="grid md:grid-cols-2 grid-cols-1 gap-6 mx-auto w-[90%] max-w-[1400px] mt-[80px]">
-        {/* Salons Dynamiques */}
-        <div className="salon-container self-start">
+        <div className="salon-container self-start relative">
           <h2 className="text-xl font-semibold mb-4 text-gray-700">Salons populaires près de chez vous</h2>
           <p className="italic text-gray-500 mb-2">{adresseUtilisateur}</p>
-          <ul className="bg-[#503f3f] text-white rounded-lg overflow-hidden salon-list">
+          <ul className="bg-[#503f3f] text-white rounded-lg overflow-hidden salon-list relative">
             {salons.length > 0 ? (
               salons.map((salon, index) => (
-                <li key={index} className="p-3 border-b border-brown-light last:border-none cursor-pointer hover:bg-orange-500">
+                <li
+                  key={index}
+                  className="p-3 border-b border-brown-light last:border-none cursor-pointer hover:bg-orange-500 relative"
+                  onMouseEnter={() => setHoveredSalon({ lat: salon.lat, lon: salon.lon })}
+                  onMouseLeave={() => setHoveredSalon(null)}
+                >
                   <strong>{salon.nom}</strong> : {salon.adresse}, {salon.ville}
+                  {hoveredSalon && hoveredSalon.lat === salon.lat && hoveredSalon.lon === salon.lon && (
+                    <div className="absolute top-0 right-0 w-[200px] h-[200px]">
+                      <MiniMap lat={salon.lat} lon={salon.lon} />
+                    </div>
+                  )}
                 </li>
               ))
             ) : (
-              <li className="p-3 text-center">En recherche de salons à proximités.</li>
+              <li className="p-3 text-center text-gray-300">En recherche de salons à proximité.</li>
             )}
           </ul>
         </div>
 
-        {/* Image de droite */}
         <div className="image-container flex flex-col items-center">
           <p className="text-xl font-semibold text-gray-700 text-center">
             Toudoux : Parce que votre compagnon mérite un soin tout doux !
@@ -172,13 +172,13 @@ export default function Home() {
       </main>
 
       <footer className="bg-[#503f3f] text-white text-center py-4">
-  <div className="flex justify-center gap-8 text-sm">
-    <a href="/conditions-utilisation" className="hover:underline">Conditions d&apos;utilisation</a>
-    <a href="/mentions-legales" className="hover:underline">Mentions légales</a>
-    <a href="/obligations" className="hover:underline">Obligations légales</a>
-  </div>
-  <p className="mt-2 text-xs">© 2025 Toudoux, Tous droits réservés.</p>
-</footer>
+        <div className="flex justify-center gap-8 text-sm">
+          <a href="/conditions-utilisation" className="hover:underline">Conditions d&apos;utilisation</a>
+          <a href="/mentions-legales" className="hover:underline">Mentions légales</a>
+          <a href="/obligations" className="hover:underline">Obligations légales</a>
+        </div>
+        <p className="mt-2 text-xs">© 2025 Toudoux, Tous droits réservés.</p>
+      </footer>
     </div>
   );
 }
