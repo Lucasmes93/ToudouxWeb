@@ -1,7 +1,7 @@
 "use client";
 import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import L from "leaflet"; // Importation correcte
+import L from "leaflet"; // Importation correcte !
 import { useEffect } from "react";
 
 interface MiniMapProps {
