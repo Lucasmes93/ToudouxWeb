@@ -4,6 +4,7 @@ import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
 interface Salon {
   id: string;
@@ -11,50 +12,72 @@ interface Salon {
   address: string;
   description: string;
   price: string;
+  lat?: number;
+  lng?: number;
 }
 
 const salons: Salon[] = [
   {
     id: "1",
     name: "Salon Lucas",
-    address: "15 rue Temple 75004 Paris",
+    address: "15 rue Temple,75004 Paris",
     description:
       "Salon calme et chaleureux, idéal pour un moment de détente avec votre compagnon.",
     price: "30€",
+    lat: 48.8566,
+    lng: 2.3522,
   },
   {
     id: "2",
     name: "Salon Bis",
-    address: "148 impasse ESTIAM, Paris, France",
+    address: "148 impasse ESTIAM",
     description:
       "Un salon spécialisé dans le toilettage des chiens de toutes races avec des produits naturels.",
     price: "40€",
+    lat: 48.8566,
+    lng: 2.3522,
   },
   {
     id: "3",
     name: "Salon TOUDOUX",
-    address: "16 boulevard nuit, Paris, France",
+    address: "16 boulevard nuit",
     description:
       "Des soins adaptés pour chaque type de compagnon, dans une ambiance conviviale.",
     price: "35€",
+    lat: 48.8566,
+    lng: 2.3522,
   },
   {
     id: "4",
     name: "Salon PAT",
-    address: "32 rue Auchant, Paris, France",
+    address: "32 rue Auchant",
     description:
       "Salon offrant des services de coupe, toilettage et bien-être pour vos animaux.",
     price: "25€",
+    lat: 48.8566,
+    lng: 2.3522,
   },
   {
     id: "5",
     name: "Salon Magic",
-    address: "2 rue de la Debouillet, Paris, France",
+    address: "2 rue de la Debouillet",
     description:
       "Un salon de beauté pour animaux qui propose également des services de relaxation pour vos chiens.",
     price: "45€",
+    lat: 48.8566,
+    lng: 2.3522,
   },
 ];
+
+const mapContainerStyle = {
+  width: "100%",
+  height: "400px",
+};
+
+const center = {
+  lat: 48.8566,
+  lng: 2.3522,
+};
 
 export default function SalonDetails() {
   const router = useRouter();
@@ -77,7 +100,7 @@ export default function SalonDetails() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
       <header className="bg-[#6C5454] text-white flex items-center justify-between p-6">
-        <div className="flex items-center cursor-pointer" onClick={() => router.push("/")}> 
+        <div className="flex items-center cursor-pointer" onClick={() => router.push("/")}>
           <Image src="/assets/toudoux.png" alt="Logo Toudoux" width={100} height={100} className="w-auto mr-2" />
         </div>
         <nav className="hidden md:flex gap-8 text-lg font-semibold ml-auto">
@@ -88,12 +111,18 @@ export default function SalonDetails() {
 
       <main className="p-6 text-gray-900 flex flex-col items-center">
         <div className="w-full max-w-4xl bg-white p-6 rounded-lg shadow-md">
-          <div className="w-full h-64 bg-gray-300 flex items-center justify-center overflow-hidden">
-            <iframe
-              className="w-full h-full"
-              src={`https://www.openstreetmap.org/export/embed.html?bbox=2.2945,48.8584,2.2955,48.8594&layer=mapnik&marker=48.8584,2.2945`}
-              allowFullScreen
-            ></iframe>
+          <div className="w-full h-64 bg-gray-300 flex items-center justify-center">
+            <LoadScript googleMapsApiKey="AIzaSyA8f9P1wqSwcpkV13zMLMfoZQ_RMRR4GpQ">
+              <GoogleMap
+                mapContainerStyle={mapContainerStyle}
+                center={center}
+                zoom={14}
+              >
+                {salon.lat && salon.lng && (
+                  <Marker position={{ lat: salon.lat, lng: salon.lng }} />
+                )}
+              </GoogleMap>
+            </LoadScript>
           </div>
 
           <div className="mt-6 flex flex-col md:flex-row gap-6">
