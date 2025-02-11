@@ -5,34 +5,43 @@ import "../styles/services.css"; // Import du fichier CSS
 export default function Services() {
   return (
     <div className="page-services">
-      {/* Header */}
-      <header className="bg-[#6C5454] text-white flex items-center justify-between p-6">
-        <div className="flex items-center">
-          <Link href="/">
-            <Image
-              src="/assets/toudoux.png" // Image dans le dossier public
-              alt="Logo Toudoux"
-              width={100} // Agrandissement du logo
-              height={100} // Agrandissement du logo
-              className="w-auto mr-2"
-            />
-          </Link>
-        </div>
-        <nav className="hidden md:flex gap-8 text-lg font-semibold ml-auto">
-          <Link
-            href="/services"
-            className="hover:bg-white hover:text-[#503f3f] px-4 py-2 rounded transition"
-          >
-            SERVICES
-          </Link>
-          <Link
-            href="/login"
-            className="hover:bg-white hover:text-[#503f3f] px-4 py-2 rounded transition"
-          >
-            CONNEXION
-          </Link>
-        </nav>
-      </header>
+       {/* Header */}
+    {/* Header */}
+    <header className="bg-[#503f3f] text-white flex items-center justify-between h-[100px] px-6 relative">
+      <div className="flex items-center">
+      <Link href="/">
+        <Image 
+          src="/assets/toudoux.png" 
+          alt="Logo Toudoux" 
+          width={220} 
+          height={80} 
+          className="shadow-none outline-none filter-none"
+        />
+        </Link>
+      </div>
+
+      <nav className="hidden md:flex gap-8 text-lg font-semibold absolute left-1/2 transform -translate-x-1/2">
+        <Link href="/services" className="px-4 py-2 rounded transition">
+          SERVICES
+        </Link>
+        <Link href="/login" className="px-4 py-2 rounded transition">
+          CONNEXION
+        </Link>
+      </nav>
+
+      {/* Icône Account à droite, ajustée à la même taille que le logo */}
+      <div className="flex items-center">
+        <Link href="/account">
+          <Image 
+            src="/assets/Account.png" 
+            alt="Compte utilisateur" 
+            width={160} 
+            height={70} 
+            className="shadow-none outline-none filter-none cursor-pointer"
+          />
+        </Link>
+      </div>
+    </header>
 
       {/* Main Content */}
       <main className="main-content">
