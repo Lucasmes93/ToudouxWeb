@@ -20,7 +20,7 @@ export default function IndexPage() {
   }, [router]);
 
   const handleAccess = () => {
-    router.replace("/");
+    router.replace("/services");
   };
 
   return (
