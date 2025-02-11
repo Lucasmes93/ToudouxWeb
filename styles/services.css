@@ -34,6 +34,37 @@ body {
   z-index: 10;
 }
 
+footer {
+  position: fixed; /* Fixe le footer en bas de l'écran */
+  bottom: 0;
+  left: 0;
+  width: 100vw; /* Prend toute la largeur de l'écran */
+  height: 60px; /* Hauteur fixe (ajuste si nécessaire) */
+  background-color: #503f3f; /* Garde la couleur actuelle */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Assure qu’il est au-dessus des autres éléments si besoin */
+  box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1); /* Optionnel : effet d'ombre */
+
+}
+
+footer a {
+color: white;
+text-decoration: none;
+margin: 0 10px;
+transition: color 0.3s;
+}
+
+footer a:hover {
+text-decoration: underline;
+}
+
+footer p {
+font-size: 0.75rem;
+}
 
 .nav-links {
   @apply flex justify-center gap-8 text-sm;
@@ -122,30 +153,6 @@ body {
   color: #fbbd23; /* Gold color for the stars */
 }
 
-/* Footer */
-footer {
-  background-color: #6c5454;
-  color: white;
-  text-align: center;
-  padding: 20px;
-  margin-top: auto; /* Colle le footer en bas */
-}
-
-footer a {
-  color: white;
-  text-decoration: none;
-  margin: 0 10px;
-  transition: color 0.3s;
-}
-
-footer a:hover {
-  text-decoration: underline;
-}
-
-footer p {
-  font-size: 0.75rem;
-}
-
 /* Media Query for Responsiveness */
 @media (max-width: 768px) {
   .service-grid {
@@ -170,10 +177,6 @@ footer p {
     font-size: 14px;
   }
 
-  .footer-links {
-    flex-direction: column;
-    gap: 15px;
-  }
 }
 
 
