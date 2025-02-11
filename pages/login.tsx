@@ -191,10 +191,13 @@ export default function Login() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-[#6C5454] text-white text-center py-4 mt-auto">
-        <p className="mt-4 text-xs">
-          © 2025 Toudoux, Tous droits réservés.
-        </p>
+      <footer className="bg-[#503f3f] text-white text-center py-4">
+        <div className="flex justify-center gap-8 text-sm">
+          <a href="/conditions-utilisation">Conditions d'utilisation</a>
+          <a href="/mentions-legales">Mentions légales</a>
+          <a href="/obligations">Obligations légales</a>
+        </div>
+        <p className="mt-2 text-xs">© 2025 Toudoux, Tous droits réservés.</p>
       </footer>
     </div>
   );
