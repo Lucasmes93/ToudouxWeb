@@ -76,7 +76,8 @@ export default function Home() {
                 distance: calculateDistance(latitude, longitude, salon.lat, salon.lon),
               }));
 
-              salonsTrouves.sort((a, b) => a.distance - b.distance);
+              salonsTrouves.sort((a: { distance: number }, b: { distance: number }) => a.distance - b.distance);
+
               setSalons(salonsTrouves.slice(0, 5));
             } else {
               setSalons([]);
@@ -124,7 +125,7 @@ export default function Home() {
 
       {/* Icône Account à droite, ajustée à la même taille que le logo */}
       <div className="flex items-center">
-        <Link href="/account">
+        <Link href="/MyAccount">
           <Image 
             src="/assets/Account.png" 
             alt="Compte utilisateur" 
